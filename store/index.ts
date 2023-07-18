@@ -1,24 +1,24 @@
 import { getAllPosts, getPostsBySearch } from '@/services/getPost';
 import {create} from 'zustand'
 
-type UsePosts = {
-  posts: any[];
-  loading: boolean;
-  getAllPosts: () => Promise<void>;
-  getPostsBySearch: (value: string) => Promise<void>
+interface UsePosts {
+	posts: any[];
+	loading: boolean;
+	getAllPosts: () => Promise<void>;
+	getPostsBySearch: (value: string) => Promise<void>
 }
 
 export const UsePosts = create<UsePosts>() ((set) => ({
-  posts: [],
-  loading: false,
-  getAllPosts: async () => {
-    set({loading: true})
-    const posts = await getAllPosts()
-    set({posts, loading: false})
+	posts: [],
+	loading: false,
+	getAllPosts: async () => {
+		set({loading: true})
+		const posts = await getAllPosts()
+		set({posts, loading: false})
   },
   getPostsBySearch: async (search) => {
-    set({loading: true})
-    const posts = await getPostsBySearch(search)
-    set({posts, loading: false})
+	set({loading: true})
+	const posts = await getPostsBySearch(search)
+	set({posts, loading: false})
   } 
 }))
